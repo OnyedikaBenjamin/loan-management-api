@@ -1,6 +1,8 @@
 package com.example.loan_management_system.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,15 +14,23 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "users")
-public class OurUsers implements UserDetails {
+public class OurUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Email(message = "Invalid email address")
+    @NotBlank(message = "Email is required")
+    @Column(unique = true)
     private String email;
+    @NotBlank(message = "Password is required")
     private String password;
-    private String role;
 
+    @NotBlank(message = "Name is required")
     private String name;
+    @NotBlank(message = "Phone number is required")
+    @Column(unique = true)
+    private String phoneNumber;
+    private String role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

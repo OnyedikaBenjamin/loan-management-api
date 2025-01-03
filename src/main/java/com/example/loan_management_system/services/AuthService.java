@@ -2,11 +2,12 @@ package com.example.loan_management_system.services;
 
 import com.example.loan_management_system.config.JWTUtils;
 import com.example.loan_management_system.dtos.RequestResponse;
-import com.example.loan_management_system.entities.OurUsers;
+import com.example.loan_management_system.entities.OurUser;
 import com.example.loan_management_system.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,21 +20,21 @@ public class AuthService {
     @Autowired
     private JWTUtils jwtUtils;
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private AuthenticationManager authenticationManager;
 
     public RequestResponse signUp(RequestResponse registrationRequest){
         RequestResponse registrationResponse = new RequestResponse();
         try {
-            OurUsers user = new OurUsers();
+            OurUser user = new OurUser();
             user.setEmail(registrationRequest.getEmail());
             user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
             user.setRole(registrationRequest.getRole());
             user.setName(registrationRequest.getName());
-            OurUsers registration = userRepo.save(user);
+            OurUser registration = userRepo.save(user);
             if(registration != null && registration.getId() > 0){
-                registrationResponse.setOurUsers(registration);
+                registrationResponse.setOurUser(registration);
                 registrationResponse.setMessage("User saved successfully");
                 registrationResponse.setStatusCode(200);
             }
@@ -73,7 +74,7 @@ public class AuthService {
     public RequestResponse refreshToken(RequestResponse refreshTokenRequest){
         RequestResponse response = new RequestResponse();
         String email = jwtUtils.extractUsername(refreshTokenRequest.getToken());
-        OurUsers user = userRepo.findByEmail(email).orElseThrow();
+        OurUser user = userRepo.findByEmail(email).orElseThrow();
         if(jwtUtils.isTokenValid(refreshTokenRequest.getToken(), user)){
             var jwt = jwtUtils.generateToken(user);
             response.setStatusCode(200);

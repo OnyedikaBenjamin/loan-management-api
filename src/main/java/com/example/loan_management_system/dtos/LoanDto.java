@@ -1,20 +1,12 @@
-package com.example.loan_management_system.entities;
+package com.example.loan_management_system.dtos;
 
-import com.example.loan_management_system.enums.LoanStatus;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
-@Entity
-@Table(name = "loans")
-public class Loan {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class LoanDto {
     @NotNull(message = "User ID is required")
     private Long userId;
 
@@ -26,7 +18,4 @@ public class Loan {
 
     @NotNull(message = "Interest rate is required")
     private BigDecimal interestRate; // in percentage
-
-    @Enumerated(EnumType.STRING)
-    private LoanStatus status; // PENDING, APPROVED, REJECTED
 }

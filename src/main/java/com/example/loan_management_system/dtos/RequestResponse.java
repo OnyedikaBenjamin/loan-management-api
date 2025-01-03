@@ -1,11 +1,9 @@
 package com.example.loan_management_system.dtos;
 
-import com.example.loan_management_system.entities.OurUsers;
+import com.example.loan_management_system.entities.OurUser;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)                                                                                   // This annotation is used during deserialization (converting JSON into Java objects). It instructs Jackson to ignore any properties in the incoming JSON that don't have corresponding fields in the RequestResponse class. This can be helpful when dealing with JSON data that might contain additional properties you don't expect or use in your application. By ignoring them, you avoid potential errors or unexpected behavior.
@@ -21,6 +19,6 @@ public class RequestResponse {
     private String email;
     private String role;
     private String password;
-    private List<Product> productList;
-    private OurUsers ourUsers;
+    private OurUser ourUser;
+    private String phoneNumber;
 }
