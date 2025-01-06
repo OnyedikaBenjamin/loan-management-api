@@ -18,7 +18,7 @@ The Loan Management System is a Spring Boot application that provides functional
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/your-repo/loan-management-system.git
+   git clone https://github.com/OnyedikaBenjamin/loan-management-api
    cd loan-management-system
    ```
 
@@ -82,7 +82,7 @@ The Loan Management System is a Spring Boot application that provides functional
   - Custom exceptions for domain-specific errors.
 
 #### 5. **Database Choice**
-- **Reason**: PostgreSQL was chosen for its robust features and open-source nature.
+- **Reason**: MySql was chosen for its robust features and open-source nature.
 - **Trade-offs**:
   - While PostgreSQL is highly reliable, it might introduce a learning curve for developers unfamiliar with it.
 
