@@ -124,5 +124,5 @@ The Loan Management System is a Spring Boot application that provides functional
 
 ---
 
-For further assistance, please contact [your-email@example.com].
+For further assistance, please contact [udegbunamonyedikabenjamin@gmail.com].
 
