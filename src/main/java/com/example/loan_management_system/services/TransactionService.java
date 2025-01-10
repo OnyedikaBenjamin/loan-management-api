@@ -1,9 +1,11 @@
 package com.example.loan_management_system.services;
 
+import com.example.loan_management_system.dtos.TransactionDTO;
 import com.example.loan_management_system.entities.Transaction;
 import com.example.loan_management_system.enums.TransactionType;
 import com.example.loan_management_system.repositories.TransactionRepo;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,14 +19,12 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
-    public Transaction recordTransaction(Long userId, Long loanId, BigDecimal amount, TransactionType type) {
-        validateTransactionAmount(amount, type);
-
+    public Transaction recordTransaction(TransactionDTO transactionDTO) {
         Transaction transaction = new Transaction();
-        transaction.setUserId(userId);
-        transaction.setLoanId(loanId);
-        transaction.setAmount(amount);
-        transaction.setType(type);
+        transaction.setUserId(transactionDTO.getUserId());
+        transaction.setLoanId(transactionDTO.getLoanId());
+        transaction.setAmount(transactionDTO.getAmount());
+        transaction.setType(transactionDTO.getType());
         transaction.setTimestamp(LocalDateTime.now());
         return transactionRepository.save(transaction);
     }
@@ -40,10 +40,6 @@ public class TransactionService {
     private void validateTransactionAmount(BigDecimal amount, TransactionType type) {
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Transaction amount must be greater than zero");
-        }
-
-        if (type == TransactionType.REPAYMENT && amount.scale() > 2) {
-            throw new IllegalArgumentException("Repayment amount must have at most two decimal places");
         }
     }
 

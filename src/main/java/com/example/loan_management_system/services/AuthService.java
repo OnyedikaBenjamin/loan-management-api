@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -32,6 +31,7 @@ public class AuthService {
             user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
             user.setRole(registrationRequest.getRole());
             user.setName(registrationRequest.getName());
+            user.setPhoneNumber(registrationRequest.getPhoneNumber());
             OurUser registration = userRepo.save(user);
             if(registration != null && registration.getId() > 0){
                 registrationResponse.setOurUser(registration);

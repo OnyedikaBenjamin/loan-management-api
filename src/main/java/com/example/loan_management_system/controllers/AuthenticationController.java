@@ -2,17 +2,19 @@ package com.example.loan_management_system.controllers;
 
 import com.example.loan_management_system.dtos.RequestResponse;
 import com.example.loan_management_system.services.AuthService;
+import com.example.loan_management_system.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
     @Autowired private AuthService authService;
+    @Autowired private UserService userService;
+
+
+
 
     @PostMapping("/signup")
     public ResponseEntity <RequestResponse> signUp(@RequestBody RequestResponse signUpRequest){
@@ -26,31 +28,4 @@ public class AuthenticationController {
     public ResponseEntity <RequestResponse> refreshToken(@RequestBody RequestResponse refreshTokenRequest){
         return ResponseEntity.ok(authService.refreshToken(refreshTokenRequest));
     }
-
-
-//    const storeTokens = async (accessToken, refreshToken) => {
-//        try {
-//            await AsyncStorage.setItem('accessToken', accessToken);
-//            await AsyncStorage.setItem('refreshToken', refreshToken);
-//        } catch (error) {
-//            console.error("Error storing tokens:", error);
-//        }
-//    };
-
-//    const logout = async () => {
-//        try {
-//            // Remove tokens from storage
-//            await AsyncStorage.removeItem('accessToken');
-//            await AsyncStorage.removeItem('refreshToken');
-//
-//            // Optionally clear other user data
-//            // Update UI
-//            // Navigate to Login Screen
-
-//            navigation.navigate('Login');
-//        } catch (error) {
-//            console.error("Logout Error:", error);
-//            // Handle errors appropriately, e.g., display an error message to the user
-//        }
-//    };
 }

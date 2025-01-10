@@ -1,16 +1,20 @@
 package com.example.loan_management_system.controllers;
 
+import com.example.loan_management_system.dtos.LoanDto;
+import com.example.loan_management_system.dtos.TransactionDTO;
+import com.example.loan_management_system.entities.Loan;
 import com.example.loan_management_system.entities.Transaction;
 import com.example.loan_management_system.enums.TransactionType;
 import com.example.loan_management_system.services.TransactionService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/transactions")
+@RequestMapping("auth/api/transactions")
 public class TransactionController {
     private final TransactionService transactionService;
 
@@ -19,13 +23,10 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<Transaction> recordTransaction(
-            @RequestParam Long userId,
-            @RequestParam Long loanId,
-            @RequestParam BigDecimal amount,
-            @RequestParam TransactionType type) {
-        return ResponseEntity.ok(transactionService.recordTransaction(userId, loanId, amount, type));
+    public ResponseEntity<Transaction> recordTransaction(@RequestBody TransactionDTO transactionDTO) {
+        return ResponseEntity.ok(transactionService.recordTransaction(transactionDTO));
     }
+
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Transaction>> getTransactionsByUserId(@PathVariable Long userId) {

@@ -24,8 +24,6 @@ import java.util.Optional;
             user.setName(requestResponse.getName());
             user.setEmail(requestResponse.getEmail());
             user.setPhoneNumber(requestResponse.getPhoneNumber());
-            user.setPassword(passwordEncoder.encode(requestResponse.getPassword()));
-            user.setRole(requestResponse.getRole());
             return userRepository.save(user);
         }
 

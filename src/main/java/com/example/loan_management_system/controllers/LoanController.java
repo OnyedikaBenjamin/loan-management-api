@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/loans")
+@RequestMapping("/auth/api/loans")
 public class LoanController {
     private final LoanService loanService;
 
